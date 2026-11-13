@@ -1,0 +1,113 @@
+<div class="contenedor">
+  <h2>Registro de Usuario</h2>
+  <p class="subtitulo">Formulario Reactivo</p>
+
+  <form [formGroup]="registroForm" (ngSubmit)="registrar()" novalidate>
+
+    <!-- ================= NOMBRE ================= -->
+    <div class="campo">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre"
+             placeholder="Escribe tu nombre">
+
+      @if (mostrarError(nombre)) {
+        @if (nombre.hasError('required')) {
+          <small class="error">El nombre es obligatorio.</small>
+        } @else if (nombre.hasError('minlength')) {
+          <small class="error">El nombre debe tener al menos 3 caracteres.</small>
+        }
+      }
+      @if (mostrarValido(nombre)) {
+        <small class="valido">✓ Válido</small>
+      }
+    </div>
+
+    <!-- ================= APELLIDOS ================= -->
+    <div class="campo">
+      <label for="apellidos">Apellidos</label>
+      <input id="apellidos" type="text" formControlName="apellidos"
+             placeholder="Escribe tus apellidos">
+
+      @if (mostrarError(apellidos)) {
+        @if (apellidos.hasError('required')) {
+          <small class="error">Los apellidos son obligatorios.</small>
+        } @else if (apellidos.hasError('minlength')) {
+          <small class="error">Los apellidos deben tener al menos 3 caracteres.</small>
+        }
+      }
+      @if (mostrarValido(apellidos)) {
+        <small class="valido">✓ Válido</small>
+      }
+    </div>
+
+    <!-- ================= CORREO ================= -->
+    <div class="campo">
+      <label for="correo">Correo electrónico</label>
+      <input id="correo" type="email" formControlName="correo"
+             placeholder="ejemplo@correo.com">
+
+      @if (mostrarError(correo)) {
+        @if (correo.hasError('required')) {
+          <small class="error">El correo es obligatorio.</small>
+        } @else {
+          <small class="error">Ingresa un correo válido.</small>
+        }
+      }
+      @if (mostrarValido(correo)) {
+        <small class="valido">✓ Válido</small>
+      }
+    </div>
+
+    <!-- ================= TELÉFONO ================= -->
+    <div class="campo">
+      <label for="telefono">Teléfono</label>
+      <input id="telefono" type="tel" formControlName="telefono"
+             placeholder="10 dígitos, ej. 6641234567">
+
+      @if (mostrarError(telefono)) {
+        @if (telefono.hasError('required')) {
+          <small class="error">El teléfono es obligatorio.</small>
+        } @else if (telefono.hasError('pattern')) {
+          <small class="error">El teléfono debe tener 10 números.</small>
+        }
+      }
+      @if (mostrarValido(telefono)) {
+        <small class="valido">✓ Válido</small>
+      }
+    </div>
+
+    <!-- ================= CONTRASEÑA ================= -->
+    <div class="campo">
+      <label for="contrasena">Contraseña</label>
+      <input id="contrasena" type="password" formControlName="contrasena"
+             placeholder="Mínimo 6 caracteres">
+
+      @if (mostrarError(contrasena)) {
+        @if (contrasena.hasError('required')) {
+          <small class="error">La contraseña es obligatoria.</small>
+        } @else if (contrasena.hasError('minlength')) {
+          <small class="error">La contraseña debe tener al menos 6 caracteres.</small>
+        }
+      }
+      @if (mostrarValido(contrasena)) {
+        <small class="valido">✓ Válido</small>
+      }
+    </div>
+
+    <!-- ================= BOTÓN ================= -->
+    <button type="submit" [disabled]="registroForm.invalid">
+      Registrar
+    </button>
+  </form>
+
+  <!-- ================= DATOS REGISTRADOS ================= -->
+  @if (datosRegistrados) {
+    <div class="exito">
+      <h3>✅ ¡Registro exitoso!</h3>
+      <p><strong>Nombre:</strong> {{ datosRegistrados.nombre }}</p>
+      <p><strong>Apellidos:</strong> {{ datosRegistrados.apellidos }}</p>
+      <p><strong>Correo:</strong> {{ datosRegistrados.correo }}</p>
+      <p><strong>Teléfono:</strong> {{ datosRegistrados.telefono }}</p>
+    </div>
+  }
+</div>
